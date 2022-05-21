@@ -6,8 +6,8 @@ import axios from "axios";
 import classes from "./Signin.module.scss";
 
 const Signin = () => {
-    const { Title, Body, Img } = Card;
-    const { Group, Label, Control, Text } = Form;
+    const { Title, Body } = Card;
+    const { Group, Control } = Form;
 
     const navigate = useNavigate();
 
@@ -23,7 +23,7 @@ const Signin = () => {
             userEmail: state.email
         }
 
-        axios.post("http://accrete-001-site1.itempurl.com/api/v1/UserLogin", "gideon.okhakumhe@accreteltd.com")
+        axios.post("http://accrete-001-site1.itempurl.com/api/v1/UserLogin", data.userEmail)
             .then(response => {
                 console.log("response", response);
                 setState({
