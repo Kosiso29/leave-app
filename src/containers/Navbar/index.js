@@ -1,7 +1,7 @@
 import classes from "./Navbar.module.scss"
 
-const Dashboard = (props) => {
-    return <div className={classes.navbar}>Dashboard</div>
+const Navbar = (props) => {
+    return <div className={classes.navbar}>Navbar</div>
 }
 
-export default Dashboard;
+export default Navbar;

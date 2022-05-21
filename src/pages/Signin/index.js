@@ -23,8 +23,7 @@ const Signin = () => {
             userEmail: state.email
         }
 
-        console.log("userEmail", data.userEmail)
-        axios.post("http://accrete-001-site1.itempurl.com/api/v1/UserLogin", data)
+        axios.post("http://accrete-001-site1.itempurl.com/api/v1/UserLogin", "gideon.okhakumhe@accreteltd.com")
             .then(response => {
                 console.log("response", response);
                 setState({
