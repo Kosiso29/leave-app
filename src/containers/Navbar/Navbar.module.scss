@@ -1,8 +1,38 @@
 .navbar {
-    width: 12.5rem;
+    width: 15rem;
     background-color: #1d1934;
     position: fixed;
     left: 0;
     top: 0;
     height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+
+    hr {
+        background-color: #ccc;
+        height: 1px;
+        width: 12rem;
+        margin: 0 auto;
+    }
+
+    .links {
+        width: 100%;
+    }
+    
+    .navlink {
+        background-color: transparent;
+        text-decoration: none;
+        color: white;
+        display: block;
+        line-height: 4em;
+        width: 100%;
+
+        &:hover {
+            background-color: #2e2a45;
+        }
+    }
+
 }

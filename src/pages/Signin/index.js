@@ -23,7 +23,7 @@ const Signin = () => {
             userEmail: state.email
         }
 
-        axios.post("http://accrete-001-site1.itempurl.com/api/v1/UserLogin", data.userEmail)
+        axios.post("http://accrete-001-site1.itempurl.com/api/v1/UserLogin", data)
             .then(response => {
                 console.log("response", response);
                 setState({
@@ -39,6 +39,7 @@ const Signin = () => {
                 setState({ ...state, error: true });
                 alert(error);
                 console.log('error', error)
+                // navigate('/Dashboard');
             })
     }
 
@@ -68,7 +69,7 @@ const Signin = () => {
                         {/* <Label>Email Address</Label> */}
                         <Control className={classes.control} type="email" placeholder="Your Email" onChange={(e) => { handleChange(e, "email") }} />
                         {/* <Label>Password</Label> */}
-                        <Control className={classes.control} type="password" placeholder="Password" onChange={(e) => { handleChange(e, "password") }} />
+                        {/* <Control className={classes.control} type="password" placeholder="Password" onChange={(e) => { handleChange(e, "password") }} /> */}
                         <Button
                             className={classes.button}
                             variant="success"
