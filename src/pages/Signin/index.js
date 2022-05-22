@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Card, Button, Form } from "react-bootstrap";
-import axios from "axios";
+import axios from "../../axios";
 
 import classes from "./Signin.module.scss";
 
@@ -23,7 +23,7 @@ const Signin = () => {
             userEmail: state.email
         }
 
-        axios.post("http://accrete-001-site1.itempurl.com/api/v1/UserLogin", data)
+        axios.post("/UserLogin", data)
             .then(response => {
                 console.log("response", response);
                 setState({

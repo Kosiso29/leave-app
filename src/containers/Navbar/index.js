@@ -7,12 +7,18 @@ const Navbar = (props) => {
         <div className={classes.navbar}>
             <div className={classes.links}>
                 <hr />
-                <Link to="/Dashboard" className={classes.navlink}>Dashboard</Link>
+                <Link to="/dashboard" className={classes.navlink}>Dashboard</Link>
                 <hr />
-                <Link to="/Users" className={classes.navlink}>All Users</Link>
+                <Link to="/rejected" className={classes.navlink}>Rejected Leaves</Link>
+                <hr />
+                <Link to="/accepted" className={classes.navlink}>Accepted Leaves</Link>
+                <hr />
+                <Link to="/total" className={classes.navlink}>Total Leaves</Link>
+                <hr />
+                <Link to="/colleague" className={classes.navlink}>Get Colleague Leaves</Link>
                 <hr />
             </div>
-            <div>
+            <div className={classes.links}>
                 <hr />
                 <Link to="/" className={classes.navlink}>Log out</Link>
                 <hr />
