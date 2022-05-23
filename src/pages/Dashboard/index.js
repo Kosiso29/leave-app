@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Button } from "react-bootstrap";
+import Backdrop from "../../components/Backdrop";
 
 import CreateLeave from "../../containers/CreateLeave";
 
@@ -12,7 +13,11 @@ const Dashboard = (props) => {
         <div>
             Dashboard
             <Button variant="success" onClick={handleClick}>+ Create Leave</Button>
-            <CreateLeave show={openModal} />
+            {openModal ?
+                <Backdrop closeModal={() => setOpenModal(false)}>
+                    <CreateLeave />
+                </Backdrop> : null
+            }
         </div>
     );
 }

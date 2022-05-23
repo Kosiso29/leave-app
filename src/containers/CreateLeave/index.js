@@ -33,27 +33,25 @@ const CreateLeave = ({show}) => {
         }
     }
 
-    if (show) {
-        return (
-            <Card>
-            <Body>
-                <Title className={classes.title}>Sign in</Title>
-                <Group className={classes.group}>
-                    <Control className={classes.control} type="email" placeholder="Your Email" onChange={(e) => { handleChange(e, "email") }} />
-                    <Button
-                        className={classes.button}
-                        variant="success"
-                        onClick={handleClick}
-                    >
-                        Login
-                    </Button>
-                </Group>
-            </Body>
+    return (
+        <div className={classes.create}>
+            <Card className={classes.card}>
+                <Body>
+                    <Title className={classes.title}>Create Leave</Title>
+                    <Group className={classes.group}>
+                        <Control className={classes.control} type="email" placeholder="Leave Type" onChange={(e) => { handleChange(e, "email") }} />
+                        <Button
+                            className={classes.button}
+                            variant="success"
+                            onClick={handleClick}
+                        >
+                            Create Leave
+                        </Button>
+                    </Group>
+                </Body>
             </Card>
-        )
-    }
-
-    return null;
+        </div>
+    )
 }
 
 export default CreateLeave;
