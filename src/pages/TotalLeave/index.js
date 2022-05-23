@@ -9,7 +9,12 @@ const TotalLeave = (props) => {
         data: []
     })
     useEffect(() => {
-        axios.get("/GetAllRequest")
+        axios.get("/GetAllRequest", {
+            params: {
+                pageNumber: 1,
+                pageSize: 10
+            }
+        })
             .then(response => {
                 return response.data;
             })
