@@ -1,19 +1,29 @@
 .create {
+    width: 90%;
+    max-width: 60em;
     .card {
-        width: 400px;
-        height: 400px;
+        padding: 2em 1em;
 
         .title {
-            margin: 3em 0;
+            margin-bottom: 1.5em;
+        }
+
+        .groups {
+            display: flex;
+            justify-content: space-between;
+            column-gap: 2em;
+            flex-wrap: wrap;
         }
 
         .group {
-            .control {
-                margin-bottom: 3em;
-            }
+            width: 100%;
+            flex: 10 0 40%;
+            margin-bottom: 1.5em;
+            min-width: 20em;
 
-            .button {
+            .label {
                 width: 100%;
+                text-align: left;
             }
         }
     }

@@ -67,7 +67,7 @@ const Signin = () => {
                     <Title className={classes.title}>Sign in</Title>
                     <Group className={classes.group}>
                         {/* <Label>Email Address</Label> */}
-                        <Control className={classes.control} type="email" placeholder="Your Email" onChange={(e) => { handleChange(e, "email") }} />
+                        <Control className={classes.control} autoComplete type="email" placeholder="Your Email" onChange={(e) => { handleChange(e, "email") }} />
                         {/* <Label>Password</Label> */}
                         {/* <Control className={classes.control} type="password" placeholder="Password" onChange={(e) => { handleChange(e, "password") }} /> */}
                         <Button

@@ -4,7 +4,7 @@ import classes from "./CreateLeave.module.scss";
 
 const CreateLeave = ({show}) => {
     const { Title, Body } = Card;
-    const { Group, Control } = Form;
+    const { Group, Control, Label } = Form;
 
     const [state, setState] = useState({
         email: '',
@@ -39,7 +39,33 @@ const CreateLeave = ({show}) => {
                 <Body>
                     <Title className={classes.title}>Create Leave</Title>
                     <Group className={classes.group}>
-                        <Control className={classes.control} type="email" placeholder="Leave Type" onChange={(e) => { handleChange(e, "email") }} />
+                        <Label className={classes.label}>Name</Label>
+                        <Control className={classes.control} type="text" placeholder="Name" onChange={(e) => { handleChange(e, "email") }} />
+                    </Group>
+                    <Group className={classes.groups}>
+                        <Group className={classes.group}>
+                            <Label className={classes.label}>Position</Label>
+                            <Control className={classes.control} type="text" placeholder="Position" onChange={(e) => { handleChange(e, "email") }} />
+                        </Group>
+                        <Group className={classes.group}>
+                            <Label className={classes.label}>Leave Type</Label>
+                            <Control className={classes.control} type="text" placeholder="Leave Type" onChange={(e) => { handleChange(e, "email") }} />
+                        </Group>
+                    </Group>
+                    <Group className={classes.groups}>
+                        <Group className={classes.group}>
+                            <Label className={classes.label}>Start Date</Label>
+                            <Control className={classes.control} type="text" placeholder="Start Date" onChange={(e) => { handleChange(e, "email") }} />
+                        </Group>
+                        <Group className={classes.group}>
+                            <Label className={classes.label}>End Date</Label>
+                            <Control className={classes.control} type="text" placeholder="End Date" onChange={(e) => { handleChange(e, "email") }} />
+                        </Group>
+                    </Group>
+                    <Group className={classes.group}>
+                        <Label className={classes.label}>Comment</Label>
+                        <Control className={classes.control} type="text" placeholder="Comment" onChange={(e) => { handleChange(e, "email") }} />
+                    </Group>
                         <Button
                             className={classes.button}
                             variant="success"
@@ -47,7 +73,6 @@ const CreateLeave = ({show}) => {
                         >
                             Create Leave
                         </Button>
-                    </Group>
                 </Body>
             </Card>
         </div>
