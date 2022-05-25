@@ -24,8 +24,7 @@ const Signin = () => {
         }
 
         axios.post("/UserLogin", data)
-            .then(response => {
-                console.log("response", response);
+            .then(() => {
                 setState({
                     ...state,
                     loggedIn: true,
@@ -38,8 +37,6 @@ const Signin = () => {
             .catch(error => {
                 setState({ ...state, error: true });
                 alert(error);
-                console.log('error', error)
-                // navigate('/Dashboard');
             })
     }
 
