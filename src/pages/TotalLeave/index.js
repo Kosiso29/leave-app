@@ -20,13 +20,10 @@ const TotalLeave = (props) => {
             })
             .then(output => {
                 setState({ data: output.data.tList })
-                console.log(output.data.tList)
             })
             .catch(error => {
                 alert(error);
-                console.log('error', error)
             })
-        console.log("state", state.data)
     }, [])
 
     return (

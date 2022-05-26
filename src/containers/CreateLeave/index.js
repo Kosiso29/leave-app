@@ -7,11 +7,6 @@ const CreateLeave = () => {
     const { Title, Body } = Card;
     const { Group, Control, Label, Select } = Form;
 
-    const [state, setState] = useState({
-        leaveTypes: [],
-        leaveLoaded: false
-    });
-
     const [loaded, setLoaded] = useState(false);
     const [submitted, setSubmitted] = useState(true);
     const [managerEmails, setManagerEmails] = useState([]);
