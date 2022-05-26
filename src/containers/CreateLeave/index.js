@@ -15,6 +15,7 @@ const CreateLeave = () => {
     const [loaded, setLoaded] = useState(false);
     const [submitted, setSubmitted] = useState(true);
     const [managerEmails, setManagerEmails] = useState([]);
+    const [hrAdminEmails, setHrAdminEmails] = useState([]);
     const [leaveTypes, setLeaveTypes] = useState([]);
 
     const [leaveType, setLeaveType] = useState('');
@@ -46,6 +47,25 @@ const CreateLeave = () => {
                         reject(error);
                     })
             })
+
+            await new Promise((resolve, reject) => {
+                axios.get("/GetHrAdmin")
+                    .then(response => { 
+                        console.log(response.data.data);
+                        const hrAdmins = response.data.data;
+                        const hrAdminEmails = [];
+                        hrAdmins.forEach(manager => {
+                            hrAdminEmails.push(manager.email);
+                        })
+                        setHrAdminEmails([...hrAdminEmails])
+                        setHrAdmin(hrAdminEmails[0]);
+                        resolve(response);
+                    })
+                    .catch(error => {
+                        alert(error);
+                        reject(error);
+                    })
+            })
             
             await new Promise((resolve, reject) => {
                 axios.get("/GetLeaveType")
@@ -53,7 +73,6 @@ const CreateLeave = () => {
                     setLeaveTypes([...response.data.data]);
                     setLeaveType(response.data.data[0]);
                     setLoaded(true);
-                    console.log(response.data.data, state);
                     resolve(response);
                 })
                 .catch(error => {
@@ -118,7 +137,7 @@ const CreateLeave = () => {
                         <Group className={classes.group}>
                             <Label htmlFor="LeaveType" className={classes.label}>HR Admin</Label>
                             <Select id="LeaveType" className={classes.control} type="text" onChange={(e) => setHrAdmin(e.target.value)} value={hrAdmin}>
-                                {managerEmails.map(email => (
+                                {hrAdminEmails.map(email => (
                                     <option>{email}</option>
                                 ))}
                             </Select>
