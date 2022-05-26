@@ -1,0 +1,17 @@
+.topbar {
+    position: fixed;
+    width: 100vw;
+    height: 4rem;
+    background-color: #1d1934;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+
+    .user {
+        margin-right: 2em;
+        color: white;
+        margin-bottom: 0;
+    }
+}

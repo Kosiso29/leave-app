@@ -27,12 +27,13 @@ const Signin = (props) => {
         }
 
         axios.post("/UserLogin", data)
-            .then(() => {
+            .then(response => {
                 setState({
                     ...state,
                     loggedIn: true,
                     error: false
                 })
+                console.log("sign in", response);
             })
             .then(() => {
                 onAuthVerifyEmail(state.email);
@@ -65,7 +66,7 @@ const Signin = (props) => {
             <Card className={classes.card}>
                 {/* <Img src="https://picsum.photos/200/50" alt="picsum" /> */}
                 <Body>
-                    <Title className={classes.title}>Sign loggedIn</Title>
+                    <Title className={classes.title}>Sign In</Title>
                     <Group className={classes.group}>
                         {/* <Label>Email Address</Label> */}
                         <Control className={classes.control} type="email" placeholder="Your Email" onChange={(e) => { handleChange(e, "email") }} />

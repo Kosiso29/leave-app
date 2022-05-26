@@ -1,3 +1,5 @@
 export {
-    authVerifyEmail
+    authVerifyEmail,
+    authCheckState,
+    authInitiateLogout
 } from "./auth";

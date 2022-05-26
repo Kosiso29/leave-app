@@ -1,8 +1,17 @@
-import classes from "./Navbar.module.scss"
-import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+
+import * as actions from "../../store/actions";
+
+import classes from "./Navbar.module.scss";
 
 const Navbar = (props) => {
+    const { onAuthInitiateLogout } = props;
+
+    const onLogoutClick = () => {
+        onAuthInitiateLogout();
+    }
+
     return (
         <div className={classes.navbar}>
             <div className={classes.links}>
@@ -20,11 +29,23 @@ const Navbar = (props) => {
             </div>
             <div className={classes.links}>
                 <hr />
-                <Link to="/" className={classes.navlink}>Log out</Link>
+                <Link to="/" className={classes.navlink} onClick={onLogoutClick} >Log out</Link>
                 <hr />
             </div>
         </div>
     )
 }
 
-export default Navbar;
+const mapStateToProps = state => {
+    return {
+        email: state.auth.email
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onAuthInitiateLogout: () => dispatch(actions.authInitiateLogout)
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar);

@@ -2,7 +2,6 @@ import * as actionTypes from "../actions/actionTypes";
 
 const initialState = {
     email: "",
-    password: "",
     loggedIn: false
 }
 
@@ -12,6 +11,16 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 email: action.email
+            }
+        case actionTypes.AUTH_CHECK_STATE:
+            return {
+                ...state,
+                email: action.email
+            }
+        case actionTypes.AUTH_INITIATE_LOGOUT:
+            return {
+                ...state,
+                email: ""
             }
     
         default:
