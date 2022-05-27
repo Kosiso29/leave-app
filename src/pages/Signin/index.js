@@ -39,6 +39,10 @@ const Signin = (props) => {
                 onAuthVerifyEmail(output.firstName + " " + output.lastName);
                 return output.microsoftAuthString;
             })
+            .then(data => {
+                navigate('/Dashboard');
+                return data;
+            })
             .catch(error => {
                 setSubmitted(true);
                 setState({ ...state, error: true });
@@ -46,18 +50,7 @@ const Signin = (props) => {
             })
         
         if (microsoftAuthString) {
-            axios.post(microsoftAuthString)
-                .then(() => {
-                    setSubmitted(true);
-                })
-                .then(() => {
-                    navigate('/Dashboard');
-                })
-                .catch(error => {
-                    setSubmitted(true);
-                    setState({ ...state, error: true });
-                    alert(error);
-                })
+            window.open(microsoftAuthString, "_blank");
         }
     }
 
