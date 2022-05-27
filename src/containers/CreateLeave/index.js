@@ -1,9 +1,11 @@
 import axios from "../../axios";
 import { useEffect, useState } from "react";
 import { Card, Form, Button, Spinner } from "react-bootstrap";
+import { connect } from "react-redux";
 import classes from "./CreateLeave.module.scss";
 
-const CreateLeave = () => {
+const CreateLeave = (props) => {
+    const { email: loginEmail } = props;
     const { Title, Body } = Card;
     const { Group, Control, Label, Select } = Form;
 
@@ -25,7 +27,6 @@ const CreateLeave = () => {
             await new Promise((resolve, reject) => {
                 axios.get("/GetManagers")
                     .then(response => { 
-                        console.log(response.data.data);
                         const managers = response.data.data;
                         const managerEmails = [];
                         managers.forEach(manager => {
@@ -34,19 +35,17 @@ const CreateLeave = () => {
                         setManagerEmails([...managerEmails])
                         setManager(managerEmails[0]);
                         setHrAdmin(managerEmails[0]);
-                        console.log(managerEmails);
                         resolve(response);
                     })
                     .catch(error => {
-                        alert(error);
-                        reject(error);
+                        alert(error.response.data.message);
+                        reject(error.response.data.message);
                     })
             })
 
             await new Promise((resolve, reject) => {
                 axios.get("/GetHrAdmin")
                     .then(response => { 
-                        console.log(response.data.data);
                         const hrAdmins = response.data.data;
                         const hrAdminEmails = [];
                         hrAdmins.forEach(manager => {
@@ -57,8 +56,8 @@ const CreateLeave = () => {
                         resolve(response);
                     })
                     .catch(error => {
-                        alert(error);
-                        reject(error);
+                        alert(error.response.data.message);
+                        reject(error.response.data.message);
                     })
             })
             
@@ -71,8 +70,8 @@ const CreateLeave = () => {
                     resolve(response);
                 })
                 .catch(error => {
-                    alert(error);
-                    reject(error);
+                    alert(error.response.data.message);
+                    reject(error.response.data.message);
                  })
             })
         }
@@ -90,7 +89,7 @@ const CreateLeave = () => {
             leaveType: leaveType,
             manager: manager,
             hrAdmin: hrAdmin,
-            employeeEmail: "gideon.okhakumhe@accreteltd.com"
+            employeeEmail: loginEmail
         }
 
         axios.post("/CreateRequest", data)
@@ -99,7 +98,7 @@ const CreateLeave = () => {
             })
             .catch(error => {
                 setSubmitted(true);
-                alert(error);
+                alert(error.response.data.message);
             })
     }
 
@@ -115,8 +114,8 @@ const CreateLeave = () => {
                     <Group className={classes.group}>
                         <Label htmlFor="LeaveType" className={classes.label}>Leave Type</Label>
                         <Select id="LeaveType" className={classes.control} type="text" onChange={(e) => setLeaveType(e.target.value)} value={leaveType}>
-                            {leaveTypes.map(leaveType => (
-                                <option>{leaveType}</option>
+                            {leaveTypes.map((leaveType, index) => (
+                                <option key={index}>{leaveType}</option>
                             ))}
                         </Select>
                     </Group>
@@ -124,16 +123,16 @@ const CreateLeave = () => {
                         <Group className={classes.group}>
                             <Label htmlFor="Manager" className={classes.label}>Manager</Label>
                             <Select id="Manager" className={classes.control} type="text" onChange={(e) => setManager(e.target.value)} value={manager}>
-                                {managerEmails.map(email => (
-                                    <option>{email}</option>
+                                {managerEmails.map((email, index) => (
+                                    <option key={index} >{email}</option>
                                 ))}
                             </Select>
                         </Group>
                         <Group className={classes.group}>
                             <Label htmlFor="LeaveType" className={classes.label}>HR Admin</Label>
                             <Select id="LeaveType" className={classes.control} type="text" onChange={(e) => setHrAdmin(e.target.value)} value={hrAdmin}>
-                                {hrAdminEmails.map(email => (
-                                    <option>{email}</option>
+                                {hrAdminEmails.map((email, index) => (
+                                    <option key={index}>{email}</option>
                                 ))}
                             </Select>
                         </Group>
@@ -166,4 +165,10 @@ const CreateLeave = () => {
     )
 }
 
-export default CreateLeave;
+const mapStateToProps = state => {
+    return {
+        email: state.auth.email
+    }
+}
+
+export default connect(mapStateToProps)(CreateLeave);

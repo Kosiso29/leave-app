@@ -36,7 +36,7 @@ const Signin = (props) => {
                     loggedIn: true,
                     error: false
                 })
-                onAuthVerifyEmail(output.firstName + " " + output.lastName);
+                onAuthVerifyEmail(output.employeeId, output.firstName + " " + output.lastName);
                 return output.microsoftAuthString;
             })
             .then(data => {
@@ -46,7 +46,7 @@ const Signin = (props) => {
             .catch(error => {
                 setSubmitted(true);
                 setState({ ...state, error: true });
-                alert(error);
+                alert(error.response.data.message);
             })
         
         if (microsoftAuthString) {
@@ -100,7 +100,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onAuthVerifyEmail: (email) => dispatch(actions.authVerifyEmail(email))
+        onAuthVerifyEmail: (email, userId) => dispatch(actions.authVerifyEmail(email, userId))
     }
 }
 

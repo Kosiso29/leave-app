@@ -8,18 +8,18 @@ import Topbar from "../Topbar";
 import classes from "./Layout.module.scss"
 
 const Layout = (props) => {
-    const { children, email, onAuthCheckState } = props;
+    const { children, userId, onAuthCheckState } = props;
 
     useEffect(() => {
-        if (!email) {
+        if (!userId) {
             onAuthCheckState();
         }
     }, []);
 
-    if (email) {
+    if (userId) {
         return (
             <div className={classes.layout}>
-                <Topbar email={email} />
+                <Topbar userId={userId} />
                 <Navbar />
                 <div className={classes.children}>
                     {children}
@@ -32,7 +32,7 @@ const Layout = (props) => {
 
 const mapStateToProps = state => {
     return {
-        email: state.auth.email
+        userId: state.auth.userId
     }
 }
 

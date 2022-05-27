@@ -1,10 +1,10 @@
 import classes from "./Topbar.module.scss"
 
 const Topbar = (props) => {
-    const { email } = props;
+    const { userId } = props;
     return (
         <div className={classes.topbar}>
-            <p className={classes.user}>{email}</p>
+            <p className={classes.user}>{userId}</p>
         </div>
     )
 }
