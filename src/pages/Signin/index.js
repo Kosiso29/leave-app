@@ -46,7 +46,7 @@ const Signin = (props) => {
             .catch(error => {
                 setSubmitted(true);
                 setState({ ...state, error: true });
-                alert(error.response.data.message);
+                alert(error.response.data.error.message);
             })
         
         if (microsoftAuthString) {

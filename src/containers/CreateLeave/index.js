@@ -38,8 +38,8 @@ const CreateLeave = (props) => {
                         resolve(response);
                     })
                     .catch(error => {
-                        alert(error.response.data.message);
-                        reject(error.response.data.message);
+                        alert(error.response.data.error.message);
+                        reject(error.response.data.error.message);
                     })
             })
 
@@ -56,8 +56,8 @@ const CreateLeave = (props) => {
                         resolve(response);
                     })
                     .catch(error => {
-                        alert(error.response.data.message);
-                        reject(error.response.data.message);
+                        alert(error.response.data.error.message);
+                        reject(error.response.data.error.message);
                     })
             })
             
@@ -70,8 +70,8 @@ const CreateLeave = (props) => {
                     resolve(response);
                 })
                 .catch(error => {
-                    alert(error.response.data.message);
-                    reject(error.response.data.message);
+                    alert(error.response.data.error.message);
+                    reject(error.response.data.error.message);
                  })
             })
         }
@@ -98,7 +98,7 @@ const CreateLeave = (props) => {
             })
             .catch(error => {
                 setSubmitted(true);
-                alert(error.response.data.message);
+                alert(error.response.data.error.message);
             })
     }
 
