@@ -1,34 +1,38 @@
 import { useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
+import { connect } from "react-redux";
 import axios from "../../axios";
 
-import classes from "./TotalLeave.module.scss";
+import classes from "./AcceptedLeave.module.scss";
 
-const TotalLeave = (props) => {
+const AcceptedLeave = (props) => {
+    const { email } = props;
+
     const [state, setState] = useState({
         data: []
     })
     useEffect(() => {
-        axios.get("/GetAllRequest", {
+        axios.get("/GetUserAcceptedRequest", {
             params: {
+                userId: email,
                 pageNumber: 1,
                 pageSize: 10
             }
         })
-            .then(response => {
-                return response.data;
-            })
-            .then(output => {
-                setState({ data: output.data.tList })
-            })
-            .catch(error => {
-                alert(error);
-            })
+        .then(response => {
+            return response.data;
+        })
+        .then(output => {
+            setState({ data: output.data.tList })
+        })
+        .catch(error => {
+            alert(error);
+        })
     }, [])
 
     return (
         <div>
-            <Table striped bordered hover className={classes.total}>
+            <Table striped bordered hover className={classes.accepted}>
                 <thead>
                     <tr>
                         <th>Leave Type</th>
@@ -58,4 +62,10 @@ const TotalLeave = (props) => {
     )
 }
 
-export default TotalLeave;
+const mapStateToProps = state => {
+    return {
+        email: state.auth.email
+    }
+}
+
+export default connect(mapStateToProps)(AcceptedLeave);
