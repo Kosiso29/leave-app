@@ -33,15 +33,15 @@ const Navbar = (props) => {
             </span>
             <div className={classes.links}>
                 {/* <hr /> */}
-                <NavLink to="/dashboard" className={({ isActive }) => isActive ? classes.active : ''} ><DashboardIcon className={classes.icon} /> Dashboard</NavLink>
+                <NavLink onClick={sideBarToggle} to="/dashboard" className={({ isActive }) => isActive ? classes.active : ''} ><DashboardIcon className={classes.icon} /> Dashboard</NavLink>
                 {/* <hr /> */}
-                <NavLink to="/rejected" className={({ isActive }) => isActive ? classes.active : ''}><ReportProblemOutlinedIcon className={classes.icon} /> Rejected Leaves</NavLink>
+                <NavLink onClick={sideBarToggle} to="/rejected" className={({ isActive }) => isActive ? classes.active : ''}><ReportProblemOutlinedIcon className={classes.icon} /> Rejected Leaves</NavLink>
                 {/* <hr /> */}
-                <NavLink to="/accepted" className={({ isActive }) => isActive ? classes.active : ''}><CheckBoxOutlinedIcon className={classes.icon} /> Accepted Leaves</NavLink>
+                <NavLink onClick={sideBarToggle} to="/accepted" className={({ isActive }) => isActive ? classes.active : ''}><CheckBoxOutlinedIcon className={classes.icon} /> Accepted Leaves</NavLink>
                 {/* <hr /> */}
-                <NavLink to="/total" className={({ isActive }) => isActive ? classes.active : ''}><GroupWorkOutlinedIcon className={classes.icon} /> Total Leaves</NavLink>
+                <NavLink onClick={sideBarToggle} to="/total" className={({ isActive }) => isActive ? classes.active : ''}><GroupWorkOutlinedIcon className={classes.icon} /> Total Leaves</NavLink>
                 {/* <hr /> */}
-                <NavLink to="/colleague" className={({ isActive }) => isActive ? classes.active : ''}><AccountBoxOutlinedIcon className={classes.icon} /> Colleague Leaves</NavLink>
+                <NavLink onClick={sideBarToggle} to="/colleague" className={({ isActive }) => isActive ? classes.active : ''}><AccountBoxOutlinedIcon className={classes.icon} /> Colleague Leaves</NavLink>
                 {/* <hr /> */}
             </div>
             <div className={classes.links}>
