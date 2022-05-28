@@ -10,7 +10,7 @@ function Backdrop(props) {
     }
 
     return (
-        <div className={classes.backdrop} onClick={handleClick.bind(this)}>
+        <div className={classes.backdrop} onClick={handleClick}>
             {children}
         </div>
     )

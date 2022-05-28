@@ -1,11 +1,14 @@
 import axios from "../../axios";
 import { useEffect, useState } from "react";
-import { Card, Form, Button, Spinner } from "react-bootstrap";
+import { Card, Form, Button, Spinner, CloseButton } from "react-bootstrap";
 import { connect } from "react-redux";
+
+import * as actions from "../../store/actions";
+
 import classes from "./CreateLeave.module.scss";
 
 const CreateLeave = (props) => {
-    const { email: loginEmail } = props;
+    const { email: loginEmail, closeModal, onAlertUpdate } = props;
     const { Title, Body } = Card;
     const { Group, Control, Label, Select } = Form;
 
@@ -38,8 +41,13 @@ const CreateLeave = (props) => {
                         resolve(response);
                     })
                     .catch(error => {
-                        alert(error.response.data.error.message);
-                        reject(error.response.data.error.message);
+                        const errorMessage = error.response.data.error.message;
+                        onAlertUpdate({
+                            show: true,
+                            variant: "danger",
+                            message: errorMessage
+                        })
+                        reject(errorMessage);
                     })
             })
 
@@ -56,8 +64,13 @@ const CreateLeave = (props) => {
                         resolve(response);
                     })
                     .catch(error => {
-                        alert(error.response.data.error.message);
-                        reject(error.response.data.error.message);
+                        const errorMessage = error.response.data.error.message;
+                        onAlertUpdate({
+                            show: true,
+                            variant: "danger",
+                            message: errorMessage
+                        })
+                        reject(errorMessage);
                     })
             })
             
@@ -70,8 +83,13 @@ const CreateLeave = (props) => {
                     resolve(response);
                 })
                 .catch(error => {
-                    alert(error.response.data.error.message);
-                    reject(error.response.data.error.message);
+                    const errorMessage = error.response.data.error.message;
+                    onAlertUpdate({
+                        show: true,
+                        variant: "danger",
+                        message: errorMessage
+                    })
+                    reject(errorMessage);
                  })
             })
         }
@@ -95,11 +113,25 @@ const CreateLeave = (props) => {
         axios.post("/CreateRequest", data)
             .then(() => {
                 setSubmitted(true);
+                onAlertUpdate({
+                    show: true,
+                    variant: "success",
+                    message: "Leave Created"
+                })
             })
             .catch(error => {
                 setSubmitted(true);
-                alert(error.response.data.error.message);
+                const errorMessage = error.response.data.error.message;
+                onAlertUpdate({
+                    show: true,
+                    variant: "danger",
+                    message: errorMessage
+                })
             })
+    }
+
+    const handleClose = () => {
+        closeModal();
     }
 
     if (!loaded) {
@@ -111,6 +143,7 @@ const CreateLeave = (props) => {
             <Card className={classes.card}>
                 <Body>
                     <Title className={classes.title}>Create Leave</Title>
+                    <CloseButton className={classes.close} onClick={handleClose} />
                     <Group className={classes.group}>
                         <Label htmlFor="LeaveType" className={classes.label}>Leave Type</Label>
                         <Select id="LeaveType" className={classes.control} type="text" onChange={(e) => setLeaveType(e.target.value)} value={leaveType}>
@@ -171,4 +204,10 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps)(CreateLeave);
+const mapDispatchToProps = dispatch => {
+    return {
+        onAlertUpdate: (alertState) => dispatch(actions.alertUpdate(alertState))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CreateLeave);

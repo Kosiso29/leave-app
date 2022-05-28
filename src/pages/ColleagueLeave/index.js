@@ -1,11 +1,14 @@
 import { useState } from "react";
 import { Table, Form, Button, Card, Spinner } from "react-bootstrap";
 import { connect } from "react-redux";
+
+import * as actions from "../../store/actions";
 import axios from "../../axios";
 
 import classes from "./ColleagueLeave.module.scss";
 
 const ColleagueLeave = (props) => {
+    const { onAlertUpdate } = props;
     const { Control, Group, Label } = Form;
 
     const [state, setState] = useState({
@@ -30,7 +33,12 @@ const ColleagueLeave = (props) => {
             setState({ ...state, data: output.data.tList, submitted: true })
         })
         .catch(error => {
-            alert(error);
+            const errorMessage = error.response.data.error.message;
+            onAlertUpdate({
+                show: true,
+                variant: "danger",
+                message: errorMessage
+            })
         })
     }
 
@@ -84,4 +92,10 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps)(ColleagueLeave);
+const mapDispatchToProps = dispatch => {
+    return {
+        onAlertUpdate: (alertState) => dispatch(actions.alertUpdate(alertState))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ColleagueLeave);

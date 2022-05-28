@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Card, Button, Form, Spinner } from "react-bootstrap";
+import { Card, Button, Form, Spinner, Alert, Toast } from "react-bootstrap";
 import { connect } from "react-redux";
 import * as actions from "../../store/actions";
 import axios from "../../axios";
@@ -8,17 +8,21 @@ import axios from "../../axios";
 import classes from "./Signin.module.scss";
 
 const Signin = (props) => {
-    const { onAuthVerifyEmail } = props;
+    const { onAuthVerifyEmail, onAlertUpdate } = props;
     const { Title, Body } = Card;
     const { Group, Control } = Form;
 
     const navigate = useNavigate();
 
     const [submitted, setSubmitted] = useState(true);
+    // const [show, setShow] = useState(false);
+  
     const [state, setState] = useState({
         email: '',
         loggedIn: false,
-        error: false
+        error: false,
+        message: "",
+        alertColor: ""
     })
 
     const handleClick = async () => {
@@ -30,6 +34,12 @@ const Signin = (props) => {
 
         const microsoftAuthString = await axios.post("/UserLogin", data)
             .then(response => {
+                onAlertUpdate({
+                    show: true,
+                    variant: "success",
+                    message: "Login Successful"
+                })
+                setSubmitted(true);
                 const output = response.data.data;
                 setState({
                     ...state,
@@ -45,8 +55,16 @@ const Signin = (props) => {
             })
             .catch(error => {
                 setSubmitted(true);
-                setState({ ...state, error: true });
-                alert(error.response.data.error.message);
+                const errorMessage = error.response.data.error.message;
+                onAlertUpdate({
+                    show: true,
+                    variant: "danger",
+                    message: errorMessage
+                });
+                setState({
+                    ...state,
+                    error: true
+                });
             })
         
         if (microsoftAuthString) {
@@ -72,6 +90,9 @@ const Signin = (props) => {
 
     return (
         <div className={classes.signin}>
+            {/* <Toast onClose={() => setShow(false)} show={show} delay={3000} autohide className={classes.toast}>
+                    <Alert variant={state.alertColor} dismissible className={classes.alert} onClose={() => setShow(false)}>{state.message}</Alert>
+            </Toast> */}
             <Card className={classes.card}>
                 <Body>
                     <Title className={classes.title}>Sign In</Title>
@@ -100,7 +121,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onAuthVerifyEmail: (email, userId) => dispatch(actions.authVerifyEmail(email, userId))
+        onAuthVerifyEmail: (email, userId) => dispatch(actions.authVerifyEmail(email, userId)),
+        onAlertUpdate: (alertState) => dispatch(actions.alertUpdate(alertState))
     }
 }
 

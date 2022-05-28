@@ -14,7 +14,7 @@ function App() {
   return (
       <div className="App">
           <Routes>
-              <Route path="/" exact element={<Signin />} />
+              <Route path="/" exact element={<Layout isSignin ><Signin /></Layout>} />
               <Route path="/dashboard" element={<Layout><Dashboard /></Layout>} />
               <Route path="/rejected" element={<Layout><RejectedLeave /></Layout>} />
               <Route path="/accepted" element={<Layout><AcceptedLeave /></Layout>} />

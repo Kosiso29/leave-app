@@ -3,7 +3,12 @@ import * as actionTypes from "../actions/actionTypes";
 const initialState = {
     email: "",
     userId: "",
-    loggedIn: false
+    loggedIn: false,
+    alertState: {
+        show: false,
+        variant: "",
+        message: ""
+    }
 }
 
 const reducer = (state = initialState, action) => {
@@ -25,7 +30,11 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 email: ""
             }
-    
+        case actionTypes.SET_ALERT_STATE:
+            return {
+                ...state,
+                alertState: action.alertState
+            }
         default:
             return state;
     }

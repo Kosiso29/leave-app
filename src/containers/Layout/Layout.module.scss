@@ -1,4 +1,21 @@
 .layout {
+    .toast {
+        position: fixed;
+        top: 8vh;
+        right: 8vw;
+        background-color: transparent;
+        box-shadow: none;
+        border: none;
+        width: unset;
+        z-index: 10000;
+
+        .alert {
+            button:focus {
+                box-shadow: none;
+            }
+        }
+    }
+
     .children {
         margin: 4rem 0 0 15rem;
         padding: 4rem;

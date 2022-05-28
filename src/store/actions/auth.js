@@ -27,3 +27,10 @@ export const authInitiateLogout = () => {
         type: actionTypes.AUTH_INITIATE_LOGOUT
     };
 };
+
+export const alertUpdate = (alertState) => {
+    return {
+        type: actionTypes.SET_ALERT_STATE,
+        alertState: alertState
+    }
+}

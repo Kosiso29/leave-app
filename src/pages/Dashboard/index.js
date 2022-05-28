@@ -15,7 +15,7 @@ const Dashboard = (props) => {
             <Button variant="success" onClick={handleClick}>+ Create Leave</Button>
             {openModal ?
                 <Backdrop closeModal={() => setOpenModal(false)}>
-                    <CreateLeave />
+                    <CreateLeave closeModal={() => setOpenModal(false)} />
                 </Backdrop> : null
             }
         </div>
