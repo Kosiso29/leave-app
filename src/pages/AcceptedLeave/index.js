@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
 import { connect } from "react-redux";
@@ -32,7 +33,7 @@ const AcceptedLeave = (props) => {
 
     return (
         <div>
-            <Table striped bordered hover className={classes.accepted}>
+            <Table striped bordered hover responsive className={classes.accepted}>
                 <thead>
                     <tr>
                         <th>Leave Type</th>

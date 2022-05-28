@@ -28,7 +28,7 @@ const TotalLeave = (props) => {
 
     return (
         <div>
-            <Table striped bordered hover className={classes.total}>
+            <Table striped bordered hover responsive className={classes.total}>
                 <thead>
                     <tr>
                         <th>Leave Type</th>

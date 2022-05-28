@@ -56,7 +56,7 @@ const ColleagueLeave = (props) => {
                     </Group>
                 </Group>
             </Card>
-            <Table striped bordered hover className={classes.table}>
+            <Table striped bordered hover responsive className={classes.table}>
                 <thead>
                     <tr>
                         <th>Leave Type</th>

@@ -4,7 +4,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background: url(../../image/beach.jpeg) no-repeat;
+    background: url(../../image/beach.jpeg) no-repeat center;
     background-size: cover;
     position: relative;
 
@@ -12,6 +12,7 @@
         width: 400px;
         height: 400px;
         background-color: rgba(210,250,252,.85);
+        max-width: 80%;
 
         .title {
             margin: 3em 0;
