@@ -1,13 +1,30 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Table } from "react-bootstrap";
 import axios from "../../axios";
 
 import classes from "./TotalLeave.module.scss";
 
+const $ = require('jquery');
+$.DataTable = require('datatables.net');
+
 const TotalLeave = (props) => {
-    const [state, setState] = useState({
-        data: []
-    })
+    const [show, setShow] = useState(false);
+
+    const tableRef = useRef();
+
+    const seperateDateTime = (data) => {
+        if (data) {
+            const dateTime = data.split("T");
+            const date = dateTime[0];
+            const time = dateTime[1];
+            const newTime = time.split(".")[0];
+    
+            return date + " @ " + newTime
+        }
+
+        return data;
+    }
+
     useEffect(() => {
         axios.get("/GetAllRequest", {
             params: {
@@ -19,43 +36,51 @@ const TotalLeave = (props) => {
                 return response.data;
             })
             .then(output => {
-                setState({ data: output.data.tList })
+                const tableList = output.data.tList;
+                const newTableList = tableList.reduce((arr, table) => {
+                    const childArray = [];
+                    childArray.push(table.leaveType);
+                    childArray.push(seperateDateTime(table.dateCreated));
+                    childArray.push(seperateDateTime(table.startDate));
+                    childArray.push(seperateDateTime(table.endDate));
+                    childArray.push(table.approvedBy);
+                    childArray.push(table.comment);
+                    childArray.push(table.status);
+                    arr.push(childArray);
+                    return arr;
+                }, [])
+                const jQueryElement = $(tableRef.current);
+                jQueryElement.DataTable(
+                    {
+                        data: newTableList,
+                        columns: [
+                            { title: "Leave Type" },
+                            { title: "Date Created" },
+                            { title: "Start Date" },
+                            { title: "End Date" },
+                            { title: "Approved by" },
+                            { title: "Comment" },
+                            { title: "Status" }
+                        ]
+                    }
+                );
+                setShow(true);
             })
             .catch(error => {
                 alert(error);
             })
     }, [])
 
-    return (
-        <div>
-            <Table striped bordered hover responsive className={classes.total}>
-                <thead>
-                    <tr>
-                        <th>Leave Type</th>
-                        <th>Date Created</th>
-                        <th>Start Date</th>
-                        <th>End Date</th>
-                        <th>Approved by</th>
-                        <th>Comment</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {state.data.map((row, index) => (
-                        <tr key={index}>
-                            <td>{row.leaveType}</td>
-                            <td>{row.dateCreated}</td>
-                            <td>{row.startDate}</td>
-                            <td>{row.endDate}</td>
-                            <td>{row.approvedBy}</td>
-                            <td>{row.comment}</td>
-                            <td>{row.status}</td>
-                        </tr>
-                    ))}
-                </tbody>
-            </Table>
-        </div>
-    )
+    if (show) {
+
+        return (
+            <div>
+                <Table striped bordered hover responsive className={classes.total} ref={tableRef}>
+                </Table>
+            </div>
+        )
+    }
+
 }
 
 export default TotalLeave;
