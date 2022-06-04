@@ -2,7 +2,7 @@
     .toast {
         position: fixed;
         top: 8vh;
-        right: 8vw;
+        right: 4rem;
         background-color: transparent;
         box-shadow: none;
         border: none;
@@ -13,6 +13,14 @@
             button:focus {
                 box-shadow: none;
             }
+        }
+
+        @media (max-width: 990px) {
+            right: 2rem;
+        }
+
+        @media (max-width: 450px) {
+            right: 1rem;
         }
     }
 
