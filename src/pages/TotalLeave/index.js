@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Table } from "react-bootstrap";
+import { Table, Spinner } from "react-bootstrap";
 import axios from "../../axios";
 
 import classes from "./TotalLeave.module.scss";
@@ -76,11 +76,17 @@ const TotalLeave = (props) => {
         return (
             <div>
                 <Table striped bordered hover responsive className={classes.total} ref={tableRef}>
+                {/* <table className={classes.total + " table table-striped table-bordered hover"} ref={tableRef}></table> */}
                 </Table>
             </div>
         )
     }
 
+    return (
+        <div className={classes.spinner}>
+            <Spinner animation="border" />
+        </div>
+    );
 }
 
 export default TotalLeave;
