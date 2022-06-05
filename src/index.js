@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter as Router } from "react-router-dom";
 import { applyMiddleware, combineReducers, compose, legacy_createStore } from "redux";
-import { configureStore } from "@reduxjs/toolkit";
+// import { configureStore } from "@reduxjs/toolkit";
 import thunk from "redux-thunk";
 import { Provider } from "react-redux";
 
@@ -10,11 +10,13 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import authReducer from "./store/reducers/auth";
+import alertReducer from "./store/reducers/alert";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const rootReducer = combineReducers({
-    auth: authReducer
+    auth: authReducer,
+    alert: alertReducer
 })
 
 const store = legacy_createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)));

@@ -1,6 +1,9 @@
 export {
     authVerifyEmail,
     authCheckState,
-    authInitiateLogout,
-    alertUpdate
+    authInitiateLogout
 } from "./auth";
+
+export {
+    alertUpdate
+} from "./alert"

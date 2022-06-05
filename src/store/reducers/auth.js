@@ -3,15 +3,10 @@ import * as actionTypes from "../actions/actionTypes";
 const initialState = {
     email: "",
     userId: "",
-    loggedIn: false,
-    alertState: {
-        show: false,
-        variant: "",
-        message: ""
-    }
+    loggedIn: false
 }
 
-const reducer = (state = initialState, action) => {
+const authReducer = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.AUTH_VERIFY_EMAIL:
             return {
@@ -30,14 +25,9 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 email: ""
             }
-        case actionTypes.SET_ALERT_STATE:
-            return {
-                ...state,
-                alertState: action.alertState
-            }
         default:
             return state;
     }
 }
 
-export default reducer;
+export default authReducer;

@@ -47,6 +47,7 @@ const Signin = (props) => {
                     error: false
                 })
                 onAuthVerifyEmail(output.employeeId, output.firstName + " " + output.lastName);
+                console.log(output);
                 return output.microsoftAuthString;
             })
             .then(data => {

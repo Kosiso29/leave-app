@@ -35,7 +35,7 @@ const Layout = (props) => {
 const mapStateToProps = state => {
     return {
         userId: state.auth.userId,
-        alertState: state.auth.alertState
+        alertState: state.alert.alertState
     }
 }
 
