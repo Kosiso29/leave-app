@@ -8,14 +8,13 @@ import axios from "../../axios";
 import classes from "./Signin.module.scss";
 
 const Signin = (props) => {
-    const { onAuthVerifyEmail, onAlertUpdate } = props;
+    const { onAuthVerifyEmail, onAlertUpdate, onUpdateUserDashboard } = props;
     const { Title, Body } = Card;
     const { Group, Control } = Form;
 
     const navigate = useNavigate();
 
     const [submitted, setSubmitted] = useState(true);
-    // const [show, setShow] = useState(false);
   
     const [state, setState] = useState({
         email: '',
@@ -48,6 +47,15 @@ const Signin = (props) => {
                 })
                 onAuthVerifyEmail(output.employeeId, output.firstName + " " + output.lastName);
                 console.log(output);
+                onUpdateUserDashboard({
+                    sickLeave: output.sickLeave,
+                    remainingSickLeave: output.remainingSickLeave,
+                    totalSickLeaveTaken: output.totalSickLeaveTaken,
+                    annualLeave: output.annualLeave,
+                    remainingAnnualLeave: output.remainingAnnualLeave,
+                    totalAnnualLeaveTaken: output.totalAnnualLeaveTaken,
+                })
+
                 return output.microsoftAuthString;
             })
             .then(data => {
@@ -91,9 +99,6 @@ const Signin = (props) => {
 
     return (
         <div className={classes.signin}>
-            {/* <Toast onClose={() => setShow(false)} show={show} delay={3000} autohide className={classes.toast}>
-                    <Alert variant={state.alertColor} dismissible className={classes.alert} onClose={() => setShow(false)}>{state.message}</Alert>
-            </Toast> */}
             <Card className={classes.card}>
                 <Body>
                     <Title className={classes.title}>Sign In</Title>
@@ -123,7 +128,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         onAuthVerifyEmail: (email, userId) => dispatch(actions.authVerifyEmail(email, userId)),
-        onAlertUpdate: (alertState) => dispatch(actions.alertUpdate(alertState))
+        onAlertUpdate: (alertState) => dispatch(actions.alertUpdate(alertState)),
+        onUpdateUserDashboard: (userData) => dispatch(actions.updateUserDashboard(userData))
     }
 }
 

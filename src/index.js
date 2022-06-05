@@ -11,12 +11,14 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import authReducer from "./store/reducers/auth";
 import alertReducer from "./store/reducers/alert";
+import dataReducer from "./store/reducers/data";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const rootReducer = combineReducers({
     auth: authReducer,
-    alert: alertReducer
+    alert: alertReducer,
+    data: dataReducer
 })
 
 const store = legacy_createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)));

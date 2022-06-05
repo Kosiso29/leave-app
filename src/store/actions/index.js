@@ -6,4 +6,8 @@ export {
 
 export {
     alertUpdate
-} from "./alert"
+} from "./alert";
+
+export {
+    updateUserDashboard
+} from "./data"
