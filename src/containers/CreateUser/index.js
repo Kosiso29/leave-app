@@ -9,7 +9,7 @@ import * as actions from "../../store/actions";
 import classes from "./CreateUser.module.scss";
 
 const CreateUser = (props) => {
-    const { closeModal, onAlertUpdate } = props;
+    const { closeModal, onAlertUpdate, editData } = props;
     const { Title, Body } = Card;
     const { Group, Control, Label, Select } = Form;
 
@@ -67,7 +67,15 @@ const CreateUser = (props) => {
             })
         }
 
-        getData()
+        getData();
+
+        if (editData) {
+            setFirstName(editData.firstName);
+            setLastName(editData.lastName);
+            setEmail(editData.email);
+            setJobRole(editData.jobRole);
+            setUserType(editData.userType);
+        }
     }, [])
 
     const handleClick = () => {
@@ -114,7 +122,7 @@ const CreateUser = (props) => {
         <div className={classes.user}>
             <Card className={classes.card}>
                 <Body>
-                    <Title className={classes.title}>Create User</Title>
+                    <Title className={classes.title}>{editData ? "Edit" : "Create"} User</Title>
                     <CloseButton className={classes.close} onClick={handleClose} />
                     <Group className={classes.groups}>
                         <Group className={classes.group}>
@@ -159,7 +167,7 @@ const CreateUser = (props) => {
                         variant="success"
                         onClick={handleClick}
                     >
-                        Create User
+                        {editData ? "Edit" : "Create"} User
                         {submitted ? null : <Spinner animation="border" className={classes.spinner} />}
                     </Button>
                 </Body>
