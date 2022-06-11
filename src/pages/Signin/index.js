@@ -45,22 +45,22 @@ const Signin = (props) => {
                     loggedIn: true,
                     error: false
                 })
-                onAuthVerifyEmail(output.employeeId, output.firstName + " " + output.lastName);
+                onAuthVerifyEmail(output.employeeId, output.firstName + " " + output.lastName, output.userType);
                 console.log(output);
                 onUpdateUserDashboard({
-                    sickLeave: output.sickLeave,
-                    remainingSickLeave: output.remainingSickLeave,
-                    totalSickLeaveTaken: output.totalSickLeaveTaken,
-                    annualLeave: output.annualLeave,
-                    remainingAnnualLeave: output.remainingAnnualLeave,
-                    totalAnnualLeaveTaken: output.totalAnnualLeaveTaken,
+                    ...output
                 })
 
-                return output.microsoftAuthString;
+                return output;
             })
             .then(data => {
-                navigate('/Dashboard');
-                return data;
+                if (data.userType === "Manager") {
+                    navigate('/manager-dashboard');
+                } else {
+                    navigate('/dashboard');
+                }
+
+                return data.microsoftAuthString;
             })
             .catch(error => {
                 setSubmitted(true);
@@ -127,7 +127,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onAuthVerifyEmail: (email, userId) => dispatch(actions.authVerifyEmail(email, userId)),
+        onAuthVerifyEmail: (email, userId, userType) => dispatch(actions.authVerifyEmail(email, userId, userType)),
         onAlertUpdate: (alertState) => dispatch(actions.alertUpdate(alertState)),
         onUpdateUserDashboard: (userData) => dispatch(actions.updateUserDashboard(userData))
     }

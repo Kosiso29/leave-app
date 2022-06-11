@@ -34,7 +34,7 @@ const Dashboard = (props) => {
             </div>
             <ListGroup className={classes.list}>
                 {listData.map((list, index) => (
-                    <Item className={classes.item}>{list.body}<Badge className={classes.badge} bg={list.variant}>{list.userData || 0}</Badge></Item>
+                    <Item key={index} className={classes.item}>{list.body}<Badge className={classes.badge} bg={list.variant}>{list.userData || 0}</Badge></Item>
                 ))}
             </ListGroup>
             {openModal ?

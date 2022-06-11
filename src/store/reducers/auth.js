@@ -3,6 +3,7 @@ import * as actionTypes from "../actions/actionTypes";
 const initialState = {
     email: "",
     userId: "",
+    userType: "",
     loggedIn: false
 }
 
@@ -12,7 +13,8 @@ const authReducer = (state = initialState, action) => {
             return {
                 ...state,
                 email: action.email,
-                userId: action.userId
+                userId: action.userId,
+                userType: action.userType
             }
         case actionTypes.AUTH_CHECK_STATE:
             return {
@@ -23,7 +25,9 @@ const authReducer = (state = initialState, action) => {
         case actionTypes.AUTH_INITIATE_LOGOUT:
             return {
                 ...state,
-                email: ""
+                email: "",
+                userId: "",
+                userType: ""
             }
         default:
             return state;

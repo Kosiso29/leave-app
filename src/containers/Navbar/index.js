@@ -14,7 +14,7 @@ import classes from "./Navbar.module.scss";
 import { useState } from "react";
 
 const Navbar = (props) => {
-    const { onAuthInitiateLogout } = props;
+    const { onAuthInitiateLogout, userType } = props;
 
     const [sideBar, setSideBar] = useState(false);
 
@@ -33,7 +33,7 @@ const Navbar = (props) => {
             </span>
             <div className={classes.links}>
                 {/* <hr /> */}
-                <NavLink onClick={sideBarToggle} to="/dashboard" className={({ isActive }) => isActive ? classes.active : ''} ><DashboardIcon className={classes.icon} /> Dashboard</NavLink>
+                <NavLink onClick={sideBarToggle} to={userType === "Manager" ? "/manager-dashboard" : "/dashboard"} className={({ isActive }) => isActive ? classes.active : ''} ><DashboardIcon className={classes.icon} /> Dashboard</NavLink>
                 {/* <hr /> */}
                 <NavLink onClick={sideBarToggle} to="/rejected" className={({ isActive }) => isActive ? classes.active : ''}><ReportProblemOutlinedIcon className={classes.icon} /> Rejected Leaves</NavLink>
                 {/* <hr /> */}
@@ -55,7 +55,8 @@ const Navbar = (props) => {
 
 const mapStateToProps = state => {
     return {
-        email: state.auth.email
+        email: state.auth.email,
+        userType: state.auth.userType
     }
 }
 

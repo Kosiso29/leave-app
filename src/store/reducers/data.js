@@ -8,6 +8,12 @@ const initialState = {
         annualLeave: 0,
         remainingAnnualLeave: 0,
         totalAnnualLeaveTaken: 0,
+        employeeId: "",
+        firstName: "",
+        lastName: "",
+        jobRole: "",
+        microsoftAuthString: "",
+        userType: ""
     }
 }
 
