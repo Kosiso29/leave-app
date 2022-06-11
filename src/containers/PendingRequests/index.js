@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useRef, useState } from "react";
 import { Table, Spinner } from "react-bootstrap";
 import { connect } from "react-redux";
@@ -12,10 +13,6 @@ $.DataTable = require('datatables.net');
 const PendingRequests = (props) => {
     const { email, onAlertUpdate } = props;
     const [show, setShow] = useState(false);
-    const [buttonSpinner, setButtonSpinner] = useState(`
-    <div class="spinner-border text-light" role="status">
-      <span class="visually-hidden">Loading...</span>
-    </div>`);
 
     const tableRef = useRef();
 
