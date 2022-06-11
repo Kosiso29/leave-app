@@ -38,7 +38,6 @@ const CreateLeave = (props) => {
                         })
                         setManagerEmails([...managerEmails])
                         setManager(managerEmails[0]);
-                        setHrAdmin(managerEmails[0]);
                         resolve(response);
                     })
                     .catch(error => {
@@ -140,7 +139,7 @@ const CreateLeave = (props) => {
     }
 
     return (
-        <div className={classes.create}>
+        <div className={classes.leave}>
             <Card className={classes.card}>
                 <Body>
                     <Title className={classes.title}>Create Leave</Title>

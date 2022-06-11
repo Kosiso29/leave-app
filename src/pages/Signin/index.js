@@ -46,7 +46,6 @@ const Signin = (props) => {
                     error: false
                 })
                 onAuthVerifyEmail(output.employeeId, output.firstName + " " + output.lastName, output.userType);
-                console.log(output);
                 onUpdateUserDashboard({
                     ...output
                 })

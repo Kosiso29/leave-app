@@ -20,7 +20,8 @@ const authReducer = (state = initialState, action) => {
             return {
                 ...state,
                 email: action.email,
-                userId: action.userId
+                userId: action.userId,
+                userType: action.userType
             }
         case actionTypes.AUTH_INITIATE_LOGOUT:
             return {

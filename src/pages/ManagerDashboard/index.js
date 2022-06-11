@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import AddOutlinedIcon from '@material-ui/icons/AddOutlined';
 
 import Backdrop from "../../components/Backdrop";
-import CreateLeave from "../../containers/CreateLeave";
+import CreateUser from "../../containers/CreateUser";
 
 import classes from "./ManagerDashboard.module.scss";
 
@@ -24,7 +24,7 @@ const ManagerDashboard = (props) => {
                 </div>
                 {openModal ?
                     <Backdrop closeModal={() => setOpenModal(false)}>
-                        <CreateLeave closeModal={() => setOpenModal(false)} />
+                        <CreateUser closeModal={() => setOpenModal(false)} />
                     </Backdrop> : null
                 }
             </div>
