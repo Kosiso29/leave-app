@@ -31,6 +31,24 @@
   color: #61dafb;
 }
 
+.pending-request-button {
+    display: flex !important;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.pending-request-spinner {
+    width: 1em !important;
+    height: 1em !important;
+    margin-left: 5px;
+    border-width: 3px !important;
+}
+
+.pending-request-spinner-hide {
+    display: none !important;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

@@ -32,11 +32,6 @@ const AllUsers = (props) => {
         }
         setEditData(createData);
         setOpenModal(true);
-        // console.log("edit", tableRow[0]);
-        // const elementArray = Array.from(e.target.parentNode.parentNode.children);
-        // elementArray.forEach(child => {
-        //     console.log(child.textContent);
-        // })
     }
 
     useEffect(() => {

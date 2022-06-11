@@ -5,6 +5,7 @@ import AddOutlinedIcon from '@material-ui/icons/AddOutlined';
 
 import Backdrop from "../../components/Backdrop";
 import CreateUser from "../../containers/CreateUser";
+import PendingRequests from "../../containers/PendingRequests";
 
 import classes from "./ManagerDashboard.module.scss";
 
@@ -27,6 +28,7 @@ const ManagerDashboard = (props) => {
                         <CreateUser closeModal={() => setOpenModal(false)} />
                     </Backdrop> : null
                 }
+                <PendingRequests />
             </div>
         );
     }
