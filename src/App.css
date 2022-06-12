@@ -36,6 +36,15 @@
     flex-wrap: nowrap;
     justify-content: space-between;
     align-items: center;
+    position: relative;
+}
+
+.pending-request-button span {
+    pointer-events: none !important;
+}
+
+.pending-request-span-hide {
+    color: transparent;
 }
 
 .pending-request-spinner {
@@ -43,6 +52,11 @@
     height: 1em !important;
     margin-left: 5px;
     border-width: 3px !important;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin-right: auto;
+    margin-left: auto;
 }
 
 .pending-request-spinner-hide {

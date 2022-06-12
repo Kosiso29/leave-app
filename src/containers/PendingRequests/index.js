@@ -31,7 +31,8 @@ const PendingRequests = (props) => {
 
     const handleApprove = (e) => {
         const button = e.target;
-        button.children[0].classList.remove("pending-request-spinner-hide");
+        button.children[0].classList.add("pending-request-span-hide");
+        button.children[1].classList.remove("pending-request-spinner-hide");
         const data = {
             leaveRequestId: button.dataset.id,
             managerEmail: email
@@ -43,7 +44,8 @@ const PendingRequests = (props) => {
                     variant: "success",
                     message: "Approved"
                 })
-                button.children[0].classList.add("pending-request-spinner-hide");
+                button.children[0].classList.remove("pending-request-span-hide");
+                button.children[1].classList.add("pending-request-spinner-hide");
             })
             .catch(error => {
                 const errorMessage = error.response.data.error.message;
@@ -52,13 +54,15 @@ const PendingRequests = (props) => {
                     variant: "danger",
                     message: errorMessage
                 });
-                button.children[0].classList.add("pending-request-spinner-hide");
+                button.children[0].classList.remove("pending-request-span-hide");
+                button.children[1].classList.add("pending-request-spinner-hide");
             })
     }
 
     const handleReject = (e) => {
         const button = e.target;
-        button.children[0].classList.remove("pending-request-spinner-hide");
+        button.children[0].classList.add("pending-request-span-hide");
+        button.children[1].classList.remove("pending-request-spinner-hide");
         const data = {
             leaveRequestId: button.dataset.id,
             managerEmail: email
@@ -70,7 +74,8 @@ const PendingRequests = (props) => {
                     variant: "success",
                     message: "Rejected"
                 })
-                button.children[0].classList.add("pending-request-spinner-hide");
+                button.children[0].classList.remove("pending-request-span-hide");
+                button.children[1].classList.add("pending-request-spinner-hide");
             })
             .catch(error => {
                 const errorMessage = error.response.data.error.message;
@@ -79,14 +84,15 @@ const PendingRequests = (props) => {
                     variant: "danger",
                     message: errorMessage
                 });
-                button.children[0].classList.add("pending-request-spinner-hide");
+                button.children[0].classList.remove("pending-request-span-hide");
+                button.children[1].classList.add("pending-request-spinner-hide");
             })
     }
 
     const createButton = (text, id, variant, tableId) => {
         return `
             <button id="${id}" data-id="${tableId}" class="btn btn-${variant} pending-request-button">
-                ${text}
+                <span>${text}</span>
                 <div class="spinner-border text-light pending-request-spinner pending-request-spinner-hide" role="status">
                   <span class="visually-hidden">Loading...</span>
                 </div>
