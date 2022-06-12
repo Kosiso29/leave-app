@@ -28,6 +28,7 @@ const ManagerDashboard = (props) => {
                         <CreateUser closeModal={() => setOpenModal(false)} />
                     </Backdrop> : null
                 }
+                <h4>Pending Requests</h4>
                 <PendingRequests />
             </div>
         );

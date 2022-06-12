@@ -13,6 +13,7 @@ $.DataTable = require('datatables.net');
 const PendingRequests = (props) => {
     const { email, userType, onAlertUpdate } = props;
     const [show, setShow] = useState(false);
+    const [reloadTable, setReloadtable] = useState(false);
 
     const tableRef = useRef();
 
@@ -46,6 +47,7 @@ const PendingRequests = (props) => {
                 })
                 button.children[0].classList.remove("pending-request-span-hide");
                 button.children[1].classList.add("pending-request-spinner-hide");
+                setReloadtable(prevState => !prevState);
             })
             .catch(error => {
                 const errorMessage = error.response.data.error.message;
@@ -56,6 +58,7 @@ const PendingRequests = (props) => {
                 });
                 button.children[0].classList.remove("pending-request-span-hide");
                 button.children[1].classList.add("pending-request-spinner-hide");
+                setReloadtable(prevState => !prevState);
             })
     }
 
@@ -76,6 +79,7 @@ const PendingRequests = (props) => {
                 })
                 button.children[0].classList.remove("pending-request-span-hide");
                 button.children[1].classList.add("pending-request-spinner-hide");
+                setReloadtable(prevState => !prevState);
             })
             .catch(error => {
                 const errorMessage = error.response.data.error.message;
@@ -86,6 +90,7 @@ const PendingRequests = (props) => {
                 });
                 button.children[0].classList.remove("pending-request-span-hide");
                 button.children[1].classList.add("pending-request-spinner-hide");
+                setReloadtable(prevState => !prevState);
             })
     }
 
@@ -146,7 +151,8 @@ const PendingRequests = (props) => {
                             { title: "End Date" },
                             { title: "Comment" },
                             { title: "Status" },
-                        ]
+                        ],
+                        destroy: true
                     }
                 );
                 setShow(true);
@@ -164,7 +170,7 @@ const PendingRequests = (props) => {
             .catch(error => {
                 alert(error);
             })
-    }, [])
+    }, [reloadTable])
 
     if (show) {
 
