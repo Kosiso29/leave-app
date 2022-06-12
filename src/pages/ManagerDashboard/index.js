@@ -17,7 +17,7 @@ const ManagerDashboard = (props) => {
         setOpenModal(true)
     }
 
-    if (userType === "Manager") {
+    if (userType === "Manager" || userType === "HR") {
         return (
             <div className={classes.manager}>
                 <div className={classes.add}>

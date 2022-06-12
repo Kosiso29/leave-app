@@ -11,7 +11,7 @@ const $ = require('jquery');
 $.DataTable = require('datatables.net');
 
 const PendingRequests = (props) => {
-    const { email, onAlertUpdate } = props;
+    const { email, userType, onAlertUpdate } = props;
     const [show, setShow] = useState(false);
 
     const tableRef = useRef();
@@ -113,8 +113,10 @@ const PendingRequests = (props) => {
                     childArray.push(seperateDateTime(table.endDate));
                     childArray.push(table.comment);
                     childArray.push(table.status);
-                    childArray.push(createButton("Approve ", "ApproveButton", "success", table.id));
-                    childArray.push(createButton("Reject ", "RejectButton", "danger", table.id));
+                    if (userType === "Manager") {
+                        childArray.push(createButton("Approve ", "ApproveButton", "success", table.id));
+                        childArray.push(createButton("Reject ", "RejectButton", "danger", table.id));
+                    }
                     arr.push(childArray);
                     return arr;
                 }, [])
@@ -122,7 +124,7 @@ const PendingRequests = (props) => {
                 jQueryElement.DataTable(
                     {
                         data: newTableList,
-                        columns: [
+                        columns: userType === "Manager" ? [
                             { title: "Leave Type" },
                             { title: "Date Created" },
                             { title: "Start Date" },
@@ -131,6 +133,13 @@ const PendingRequests = (props) => {
                             { title: "Status" },
                             { title: "Approve" },
                             { title: "Reject" }
+                        ] : [
+                            { title: "Leave Type" },
+                            { title: "Date Created" },
+                            { title: "Start Date" },
+                            { title: "End Date" },
+                            { title: "Comment" },
+                            { title: "Status" },
                         ]
                     }
                 );
@@ -171,7 +180,8 @@ const PendingRequests = (props) => {
 
 const mapStateToProps = state => {
     return {
-        email: state.auth.email
+        email: state.auth.email,
+        userType: state.auth.userType
     }
 }
 

@@ -33,9 +33,9 @@ const Navbar = (props) => {
             </span>
             <div className={classes.links}>
                 {/* <hr /> */}
-                <NavLink onClick={sideBarToggle} to={userType === "Manager" ? "/manager-dashboard" : "/dashboard"} className={({ isActive }) => isActive ? classes.active : ''} ><DashboardIcon className={classes.icon} /> Dashboard</NavLink>
+                <NavLink onClick={sideBarToggle} to={userType === "Manager" || userType === "HR" ? "/manager-dashboard" : "/dashboard"} className={({ isActive }) => isActive ? classes.active : ''} ><DashboardIcon className={classes.icon} /> Dashboard</NavLink>
                 {/* <hr /> */}
-                {userType === "Manager" ? <NavLink onClick={sideBarToggle} to="/users" className={({ isActive }) => isActive ? classes.active : ''} ><DashboardIcon className={classes.icon} /> All Users</NavLink> : null}
+                {userType === "Manager" || userType === "HR" ? <NavLink onClick={sideBarToggle} to="/users" className={({ isActive }) => isActive ? classes.active : ''} ><DashboardIcon className={classes.icon} /> All Users</NavLink> : null}
                 {/* <hr /> */}
                 <NavLink onClick={sideBarToggle} to="/rejected" className={({ isActive }) => isActive ? classes.active : ''}><ReportProblemOutlinedIcon className={classes.icon} /> Rejected Leaves</NavLink>
                 {/* <hr /> */}

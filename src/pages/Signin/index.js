@@ -45,7 +45,11 @@ const Signin = (props) => {
                     loggedIn: true,
                     error: false
                 })
-                onAuthVerifyEmail(output.employeeId, output.firstName + " " + output.lastName, output.userType);
+                if (output.userType === "User" && output.jobRole === "Human Resource") {
+                    onAuthVerifyEmail(output.employeeId, output.firstName + " " + output.lastName, "HR");
+                } else {
+                    onAuthVerifyEmail(output.employeeId, output.firstName + " " + output.lastName, output.userType);
+                }
                 onUpdateUserDashboard({
                     ...output
                 })
@@ -53,7 +57,7 @@ const Signin = (props) => {
                 return output;
             })
             .then(data => {
-                if (data.userType === "Manager") {
+                if (data.userType === "Manager" || data.jobRole === "Human Resource") {
                     navigate('/manager-dashboard');
                 } else {
                     navigate('/dashboard');
