@@ -7,6 +7,7 @@ import GroupWorkOutlinedIcon from '@material-ui/icons/GroupWorkOutlined';
 import AccountBoxOutlinedIcon from '@material-ui/icons/AccountBoxOutlined';
 import ExitToAppOutlinedIcon from '@material-ui/icons/ExitToAppOutlined';
 import MenuOutlinedIcon from '@material-ui/icons/MenuOutlined';
+import SupervisedUserCircleOutlinedIcon from '@material-ui/icons/SupervisedUserCircleOutlined';
 
 import * as actions from "../../store/actions";
 
@@ -35,7 +36,7 @@ const Navbar = (props) => {
                 {/* <hr /> */}
                 <NavLink onClick={sideBarToggle} to={userType === "Manager" || userType === "HR" ? "/manager-dashboard" : "/dashboard"} className={({ isActive }) => isActive ? classes.active : ''} ><DashboardIcon className={classes.icon} /> Dashboard</NavLink>
                 {/* <hr /> */}
-                {userType === "Manager" || userType === "HR" ? <NavLink onClick={sideBarToggle} to="/users" className={({ isActive }) => isActive ? classes.active : ''} ><DashboardIcon className={classes.icon} /> All Users</NavLink> : null}
+                {userType === "Manager" || userType === "HR" ? <NavLink onClick={sideBarToggle} to="/users" className={({ isActive }) => isActive ? classes.active : ''} ><SupervisedUserCircleOutlinedIcon className={classes.icon} /> All Users</NavLink> : null}
                 {/* <hr /> */}
                 <NavLink onClick={sideBarToggle} to="/rejected" className={({ isActive }) => isActive ? classes.active : ''}><ReportProblemOutlinedIcon className={classes.icon} /> Rejected Leaves</NavLink>
                 {/* <hr /> */}
