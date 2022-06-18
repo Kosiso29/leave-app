@@ -26,8 +26,8 @@ const Datatable = (props) => {
     if (show) {
 
         return (
-            <div>
-                <Table striped bordered hover responsive className={classes.datatable} ref={tableRef}></Table>
+            <div className={classes.datatable}>
+                <Table striped bordered hover responsive className={classes.table} ref={tableRef}></Table>
             </div>
         )
     }
