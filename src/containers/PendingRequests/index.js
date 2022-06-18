@@ -152,7 +152,8 @@ const PendingRequests = (props) => {
                             { title: "Comment" },
                             { title: "Status" },
                         ],
-                        destroy: true
+                        destroy: true,
+                        scrollX: "100%",
                     }
                 );
                 setShow(true);

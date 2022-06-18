@@ -1,6 +1,10 @@
 @import url("https://cdn.datatables.net/v/dt/dt-1.12.1/datatables.min.css");
 @import url("https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css");
 
+html {
+    overflow: hidden;
+}
+
 .App {
   text-align: center;
 }

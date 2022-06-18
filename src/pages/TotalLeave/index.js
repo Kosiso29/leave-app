@@ -61,7 +61,10 @@ const TotalLeave = (props) => {
                             { title: "Approved by" },
                             { title: "Comment" },
                             { title: "Status" }
-                        ]
+                        ],
+                        destroy: true,
+                        scrollX: "100%",
+                        scrollY: "60vh"
                     }
                 );
                 setShow(true);
