@@ -1,29 +1,13 @@
-import { useEffect, useRef, useState } from "react";
-import { Table, Spinner } from "react-bootstrap";
+import { useEffect, useState } from "react";
 import axios from "../../axios";
 
-import classes from "./TotalLeave.module.scss";
+import Datatable from "../../components/Datatable";
+import { seperateDateTime } from "../../utils/separateDateTime";
 
-const $ = require('jquery');
-$.DataTable = require('datatables.net');
-
-const TotalLeave = (props) => {
+const TotalLeave = () => {
     const [show, setShow] = useState(false);
-
-    const tableRef = useRef();
-
-    const seperateDateTime = (data) => {
-        if (data) {
-            const dateTime = data.split("T");
-            const date = dateTime[0];
-            const time = dateTime[1];
-            const newTime = time.split(".")[0];
-    
-            return date + " @ " + newTime
-        }
-
-        return data;
-    }
+    const [dataList, setDataList] = useState(false);
+    const [columnList, setColumnList] = useState(false);
 
     useEffect(() => {
         axios.get("/GetAllRequest", {
@@ -37,7 +21,7 @@ const TotalLeave = (props) => {
             })
             .then(output => {
                 const tableList = output.data.tList;
-                const newTableList = tableList.reduce((arr, table) => {
+                const newDataList = tableList.reduce((arr, table) => {
                     const childArray = [];
                     childArray.push(table.leaveType);
                     childArray.push(seperateDateTime(table.dateCreated));
@@ -48,25 +32,18 @@ const TotalLeave = (props) => {
                     childArray.push(table.status);
                     arr.push(childArray);
                     return arr;
-                }, [])
-                const jQueryElement = $(tableRef.current);
-                jQueryElement.DataTable(
-                    {
-                        data: newTableList,
-                        columns: [
-                            { title: "Leave Type" },
-                            { title: "Date Created" },
-                            { title: "Start Date" },
-                            { title: "End Date" },
-                            { title: "Approved by" },
-                            { title: "Comment" },
-                            { title: "Status" }
-                        ],
-                        destroy: true,
-                        scrollX: "100%",
-                        scrollY: "60vh"
-                    }
-                );
+                }, []);
+                const newColumnList = [
+                    { title: "Leave Type" },
+                    { title: "Date Created" },
+                    { title: "Start Date" },
+                    { title: "End Date" },
+                    { title: "Approved by" },
+                    { title: "Comment" },
+                    { title: "Status" }
+                ];
+                setDataList(newDataList);
+                setColumnList(newColumnList);
                 setShow(true);
             })
             .catch(error => {
@@ -74,22 +51,7 @@ const TotalLeave = (props) => {
             })
     }, [])
 
-    if (show) {
-
-        return (
-            <div>
-                <Table striped bordered hover responsive className={classes.total} ref={tableRef}>
-                {/* <table className={classes.total + " table table-striped table-bordered hover"} ref={tableRef}></table> */}
-                </Table>
-            </div>
-        )
-    }
-
-    return (
-        <div className={classes.spinner}>
-            <Spinner animation="border" />
-        </div>
-    );
+    return <Datatable show={show} dataList={dataList} columnList={columnList} scrollY="60vh" />
 }
 
 export default TotalLeave;

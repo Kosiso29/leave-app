@@ -1,25 +1,23 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useRef, useState } from "react";
-import { Table, Spinner } from "react-bootstrap";
+import { useEffect, useState } from "react";
 import axios from "../../axios";
 
 import Backdrop from "../../components/Backdrop";
 import CreateUser from "../../containers/CreateUser";
-
-import classes from "./AllUsers.module.scss";
+import Datatable from "../../components/Datatable";
 
 const $ = require('jquery');
 $.DataTable = require('datatables.net');
 
 const AllUsers = (props) => {
     const [show, setShow] = useState(false);
+    const [dataList, setDataList] = useState(false);
+    const [columnList, setColumnList] = useState(false);
     const [openModal, setOpenModal] = useState(false);
     const [editData, setEditData] = useState({
         firstName: "",
         lastName: ""
     });
-
-    const tableRef = useRef();
 
     const handleEdit = (e) => {
         const tableRow = e.target.parentNode.parentNode.children
@@ -35,90 +33,71 @@ const AllUsers = (props) => {
     }
 
     useEffect(() => {
-        const getData = async () => {
-            await new Promise((resolve, reject) => {
-                axios.get("/GetAllUsers", {
-                    params: {
-                        pageNumber: 1,
-                        pageSize: 10
-                    }
-                })
-                    .then(response => {
-                        return response.data;
-                    })
-                    .then(output => {
-                        const tableList = output.data.tList;
-                        const newTableList = tableList.reduce((arr, table) => {
-                            const childArray = [];
-                            childArray.push(table.firstName);
-                            childArray.push(table.lastName);
-                            childArray.push(table.employeeId);
-                            childArray.push(table.jobRole);
-                            childArray.push(table.userType);
-                            childArray.push(`<button id="ButtonEdit" class="btn btn-primary">Edit</button>`);
-                            childArray.push(table.sickLeave);
-                            childArray.push(table.remainingSickLeave);
-                            childArray.push(table.totalSickLeaveTaken);
-                            childArray.push(table.annualLeave);
-                            childArray.push(table.remainingAnnualLeave);
-                            childArray.push(table.totalAnnualLeaveTaken);
-                            arr.push(childArray);
-                            return arr;
-                        }, [])
-                        const jQueryElement = $(tableRef.current);
-                        jQueryElement.DataTable(
-                            {
-                                data: newTableList,
-                                columns: [
-                                    { title: "First Name" },
-                                    { title: "Last Name" },
-                                    { title: "Email" },
-                                    { title: "Job Role" },
-                                    { title: "User Type" },
-                                    { title: "Actions" },
-                                    { title: "S+" },
-                                    { title: "S-" },
-                                    { title: "S=" },
-                                    { title: "A+" },
-                                    { title: "A-" },
-                                    { title: "A=" }
-                                ]
-                            }
-                        );
-                        setShow(true);
-                    })
-                    .then(() => {
-                        const editButtons = document.querySelectorAll("#ButtonEdit");
-                        editButtons.forEach(editButton => {
-                            editButton.addEventListener("click", handleEdit);
-                        })
-                    })
-                    .catch(error => {
-                        alert(error);
-                    })
+        axios.get("/GetAllUsers", {
+            params: {
+                pageNumber: 1,
+                pageSize: 10
+            }
+        })
+            .then(response => {
+                return response.data;
             })
-        }
-
-        getData();
+            .then(output => {
+                const tableList = output.data.tList;
+                const newDataList = tableList.reduce((arr, table) => {
+                    const childArray = [];
+                    childArray.push(table.firstName);
+                    childArray.push(table.lastName);
+                    childArray.push(table.employeeId);
+                    childArray.push(table.jobRole);
+                    childArray.push(table.userType);
+                    childArray.push(`<button id="ButtonEdit" class="btn btn-primary">Edit</button>`);
+                    childArray.push(table.sickLeave);
+                    childArray.push(table.remainingSickLeave);
+                    childArray.push(table.totalSickLeaveTaken);
+                    childArray.push(table.annualLeave);
+                    childArray.push(table.remainingAnnualLeave);
+                    childArray.push(table.totalAnnualLeaveTaken);
+                    arr.push(childArray);
+                    return arr;
+                }, [])
+                const newColumnList = [
+                    { title: "First Name" },
+                    { title: "Last Name" },
+                    { title: "Email" },
+                    { title: "Job Role" },
+                    { title: "User Type" },
+                    { title: "Actions" },
+                    { title: "S+" },
+                    { title: "S-" },
+                    { title: "S=" },
+                    { title: "A+" },
+                    { title: "A-" },
+                    { title: "A=" }
+                ];
+                setDataList(newDataList);
+                setColumnList(newColumnList);
+                setShow(true);
+            })
+            .then(() => {
+                const editButtons = document.querySelectorAll("#ButtonEdit");
+                editButtons.forEach(editButton => {
+                    editButton.addEventListener("click", handleEdit);
+                })
+            })
+            .catch(error => {
+                alert(error);
+            })
     }, [])
 
-    if (show) {
-
-        return (
-            <div>
-                <Table striped bordered hover responsive className={classes.users} ref={tableRef}></Table>
-                {openModal ?
-                    <Backdrop closeModal={() => setOpenModal(false)}>
-                        <CreateUser closeModal={() => setOpenModal(false)} editData={editData} />
-                    </Backdrop> : null
-                }
-            </div>
-        )
-    }
-
     return (
-        <div className={classes.spinner}>
-            <Spinner animation="border" />
+        <div>
+            <Datatable show={show} dataList={dataList} columnList={columnList} scrollY="60vh" />
+            {openModal ?
+                <Backdrop closeModal={() => setOpenModal(false)}>
+                    <CreateUser closeModal={() => setOpenModal(false)} editData={editData} />
+                </Backdrop> : null
+            }
         </div>
     );
 }

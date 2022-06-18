@@ -34,6 +34,7 @@ const ColleagueLeave = (props) => {
         })
         .catch(error => {
             const errorMessage = error.response.data.error.message;
+            setState({ ...state, submitted: true })
             onAlertUpdate({
                 show: true,
                 variant: "danger",
