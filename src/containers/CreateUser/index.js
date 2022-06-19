@@ -32,7 +32,7 @@ const CreateUser = (props) => {
                     .then(response => {
                         const roles = response.data.data;
                         setJobRoles(roles)
-                        setJobRole(roles[0]);
+                        setJobRole(editData ? editData.jobRole : roles[0]);
                         resolve(response);
                     })
                     .catch(error => {
@@ -51,7 +51,7 @@ const CreateUser = (props) => {
                     .then(response => {
                         const userTypes = response.data.data;
                         setUserTypes(userTypes)
-                        setUserType(userTypes[0]);
+                        setUserType(editData ? editData.userType : userTypes[0]);
                         setLoaded(true);
                         resolve(response);
                     })
@@ -73,8 +73,6 @@ const CreateUser = (props) => {
             setFirstName(editData.firstName);
             setLastName(editData.lastName);
             setEmail(editData.email);
-            setJobRole(editData.jobRole);
-            setUserType(editData.userType);
         }
     }, [])
 
