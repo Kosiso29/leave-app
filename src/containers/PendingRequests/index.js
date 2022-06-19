@@ -88,6 +88,17 @@ const PendingRequests = (props) => {
             </button>`
     }
 
+    const createAddEventListener = () => {
+        const approveButtons = document.querySelectorAll("#ApproveButton");
+        approveButtons.forEach(approveButton => {
+            approveButton.addEventListener("click", handleApprove);
+        })
+        const rejectButtons = document.querySelectorAll("#RejectButton");
+        rejectButtons.forEach(rejectButton => {
+            rejectButton.addEventListener("click", handleReject);
+        })
+    }
+
     useEffect(() => {
         axios.get("/GetAllPendingRequests", {
             params: {
@@ -136,22 +147,12 @@ const PendingRequests = (props) => {
                 setColumnList(newColumnList);
                 setShow(true);
             })
-            .then(() => {
-                const approveButtons = document.querySelectorAll("#ApproveButton");
-                approveButtons.forEach(approveButton => {
-                    approveButton.addEventListener("click", handleApprove);
-                })
-                const rejectButtons = document.querySelectorAll("#RejectButton");
-                rejectButtons.forEach(rejectButton => {
-                    rejectButton.addEventListener("click", handleReject);
-                })
-            })
             .catch(error => {
                 alert(error);
             })
     }, [reloadTable])
 
-    return <Datatable reloadTable={reloadTable} show={show} dataList={dataList} columnList={columnList} scrollY="50vh" />
+    return <Datatable reloadTable={reloadTable} show={show} dataList={dataList} columnList={columnList} scrollY="50vh" createAddEventListener={userType === "Manager" ? createAddEventListener : null} />
 }
 
 const mapStateToProps = state => {

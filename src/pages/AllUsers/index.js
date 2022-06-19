@@ -9,7 +9,7 @@ import Datatable from "../../components/Datatable";
 const $ = require('jquery');
 $.DataTable = require('datatables.net');
 
-const AllUsers = (props) => {
+const AllUsers = () => {
     const [show, setShow] = useState(false);
     const [dataList, setDataList] = useState(false);
     const [columnList, setColumnList] = useState(false);
@@ -30,6 +30,13 @@ const AllUsers = (props) => {
         }
         setEditData(createData);
         setOpenModal(true);
+    }
+
+    const createAddEventListener = () => {
+        const editButtons = document.querySelectorAll("#ButtonEdit");
+        editButtons.forEach(editButton => {
+            editButton.addEventListener("click", handleEdit);
+        })
     }
 
     useEffect(() => {
@@ -79,12 +86,6 @@ const AllUsers = (props) => {
                 setColumnList(newColumnList);
                 setShow(true);
             })
-            .then(() => {
-                const editButtons = document.querySelectorAll("#ButtonEdit");
-                editButtons.forEach(editButton => {
-                    editButton.addEventListener("click", handleEdit);
-                })
-            })
             .catch(error => {
                 alert(error);
             })
@@ -92,7 +93,7 @@ const AllUsers = (props) => {
 
     return (
         <div>
-            <Datatable show={show} dataList={dataList} columnList={columnList} scrollY="60vh" />
+            <Datatable show={show} dataList={dataList} columnList={columnList} scrollY="60vh" createAddEventListener={createAddEventListener} />
             {openModal ?
                 <Backdrop closeModal={() => setOpenModal(false)}>
                     <CreateUser closeModal={() => setOpenModal(false)} editData={editData} />

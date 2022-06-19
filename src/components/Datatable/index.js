@@ -8,7 +8,7 @@ const $ = require('jquery');
 $.DataTable = require('datatables.net');
 
 const Datatable = (props) => {
-    const { show, dataList, columnList, scrollY } = props;
+    const { show, dataList, columnList, scrollY, createAddEventListener } = props;
 
     const tableRef = useRef();
 
@@ -19,12 +19,16 @@ const Datatable = (props) => {
             columns: columnList,
             destroy: true,
             scrollX: "100%",
-            scrollY: scrollY
+            scrollY: scrollY,
+            autoWidth: false
         }
     );
 
-    if (show) {
+    if (createAddEventListener) {
+        createAddEventListener();
+    }
 
+    if (show) {
         return (
             <div className={classes.datatable}>
                 <Table striped bordered hover responsive className={classes.table} ref={tableRef}></Table>
